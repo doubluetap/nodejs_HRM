@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Quản lý tài khoản</title>
+
+<link rel="stylesheet" href="/home.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Quản lý tài khoản</h1>
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Username</th>
+<th>Email</th>
+<th>Role</th>
+<th>Cập nhật</th>
+</tr>
+
+</thead>
+
+<tbody id="userTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let roles = []
+
+// load role + user
+async function loadData(){
+
+// lấy danh sách role
+const roleRes = await fetch("/roles")
+roles = await roleRes.json()
+
+// lấy danh sách user
+const userRes = await fetch("/users")
+const users = await userRes.json()
+
+const table = document.getElementById("userTable")
+
+table.innerHTML=""
+
+// render bảng
+users.forEach(user=>{
+
+let roleOptions=""
+
+roles.forEach(role=>{
+
+roleOptions += `
+<option value="${role.id}" ${role.role_name===user.role_name?"selected":""}>
+${role.role_name}
+</option>
+`
+
+})
+
+table.innerHTML += `
+
+<tr>
+
+<td>${user.id}</td>
+
+<td>${user.username}</td>
+
+<td>${user.email}</td>
+
+<td>
+
+<select id="role-${user.id}">
+${roleOptions}
+</select>
+
+</td>
+
+<td>
+
+<button onclick="updateRole(${user.id})">
+Lưu
+</button>
+
+</td>
+
+</tr>
+
+`
+
+})
+
+}
+
+
+// cập nhật role
+async function updateRole(id){
+
+const role_id = document.getElementById(`role-${id}`).value
+
+await fetch("/update-role",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+id:id,
+role_id:role_id
+})
+
+})
+
+alert("Cập nhật role thành công")
+
+}
+
+// chạy khi mở trang
+loadData()
+
+</script>
+
+</body>
+</html>

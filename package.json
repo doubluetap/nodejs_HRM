@@ -1,0 +1,34 @@
+{
+  "name": "hrm",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "HRM",
+    "HRM",
+    "nodejs"
+  ],
+  "homepage": "https://github.com/doubluetap/nodejs_HRM#readme",
+  "bugs": {
+    "url": "https://github.com/doubluetap/nodejs_HRM/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doubluetap/nodejs_HRM.git"
+  },
+  "license": "ISC",
+  "author": "Tm",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
